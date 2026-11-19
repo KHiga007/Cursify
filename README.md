@@ -15,85 +15,46 @@
   <img alt="Licencia GPL-3.0" src="https://img.shields.io/badge/licencia-GPL--3.0-blue">
 </p>
 
----
+<!-- Captura de la app: agregar recursos/captura.png y mostrarla acá -->
 
-**Cursify** convierte un pack de cursores de Windows (`.ani`, `.cur`, `.ico`), o
-imágenes sueltas (`.png`, `.svg`), en un tema de cursor de Linux y lo activa al
-instante. Reconoce sola qué archivo va en cada situación, te deja retocar todo
-antes de aplicarlo y guarda tus combinaciones como presets.
+## Inicio rápido
 
-## Índice
-
-- [Características](#características)
-- [Requisitos](#requisitos)
-- [Instalación](#instalación)
-- [Cómo se usa](#cómo-se-usa)
-- [Presets](#presets)
-- [Apps Flatpak](#apps-flatpak)
-- [Cómo funciona por dentro](#cómo-funciona-por-dentro)
-- [Estructura del proyecto](#estructura-del-proyecto)
-- [Desinstalar](#desinstalar)
-- [Licencia](#licencia)
+1. Descargá el instalador `.deb` desde [Releases](https://github.com/KHiga007/Cursify/releases/latest).
+2. Abrilo con doble clic para instalarlo.
+3. Abrí **Cursify** desde el menú, en **Preferencias**, y soltá la carpeta de tu pack en la ventana.
 
 ## Características
 
-- **Formatos de Windows nativos**: lee cursores animados `.ani`, estáticos
-  `.cur` e íconos `.ico`, además de `.png` y `.svg`.
-- **Detección automática**: ubica cada archivo en una de las 15 situaciones del
-  cursor, igual que en *Panel de control → Mouse → Punteros* de Windows.
-- **Vista previa en vivo**: pasá el mouse por un cuadro y probás el cursor de
-  verdad, animación incluida.
-- **Punto activo editable**: con un clic elegís qué píxel "hace clic".
-- **Arrastrar y soltar**: soltá una carpeta en la ventana para cargar el pack, o
-  un archivo sobre un cuadro para cambiar solo ese.
-- **Cuatro tamaños**: 24, 32, 48 y 64 px.
-- **Presets**: guardás combinaciones completas y las volvés a aplicar cuando
-  quieras, aunque hayas borrado el pack original.
+- **Formatos de Windows**: cursores animados `.ani`, estáticos `.cur` e íconos `.ico`, además de `.png` y `.svg`.
+- **Detección automática**: ubica cada archivo en una de las 15 situaciones del cursor, como en Windows.
+- **Vista previa en vivo**: pasás el mouse por un cuadro y probás el cursor de verdad, animación incluida.
+- **Presets**: guardás tus combinaciones y las volvés a aplicar aunque borres el pack original.
 - **Vuelta atrás**: un clic y volvés al cursor que tenías antes.
 - **Español e inglés**: toma el idioma del sistema y se puede cambiar desde la app.
-- **Sin sudo**: todo se instala y se guarda en tu usuario.
-
-## Requisitos
-
-- Linux Mint con Cinnamon. También aplica el cursor en GNOME y MATE si están.
-- Python 3 con GTK 3 (PyGObject). Viene con Linux Mint. Si falta:
-
-  ```bash
-  sudo apt install python3-gi gir1.2-gtk-3.0
-  ```
 
 ## Instalación
 
-1. Descargá `cursify_X.Y.Z_all.deb` desde la página de
-   [Releases](https://github.com/KHiga007/Cursify/releases/latest).
-2. Abrilo con doble clic para instalarlo con el Instalador de paquetes, o desde
-   la terminal:
+Funciona en Linux Mint con Cinnamon, y también aplica el cursor en GNOME y MATE.
+
+1. Descargá `cursify_X.Y.Z_all.deb` desde [Releases](https://github.com/KHiga007/Cursify/releases/latest).
+2. Abrilo con doble clic, o instalalo desde la terminal:
 
    ```bash
    sudo apt install ./cursify_*_all.deb
    ```
 
-3. Abrí **Cursify** desde el menú, en **Preferencias**.
+3. Abrí **Cursify** desde el menú, en **Preferencias**, o con el comando `cursify`.
 
-Para desinstalarlo: `sudo apt remove cursify`.
-
-También se abre desde la terminal:
-
-```bash
-cursify                       # abre la app
-cursify ~/Descargas/MiPack    # abre la app con un pack ya cargado
-```
+Para abrir la app con un pack ya cargado: `cursify ~/Descargas/MiPack`.
 
 ## Cómo se usa
 
 ### 1. Cargar un pack
 
-Tocá **Abrir carpeta de cursores…** o arrastrá la carpeta a la ventana. Cursify
-ubica cada archivo usando, en este orden:
+Tocá **Abrir carpeta de cursores…** o arrastrá la carpeta a la ventana. Cursify ubica cada archivo usando, en este orden:
 
 1. El `install.inf` del pack, si lo trae.
-2. El nombre del archivo: reconoce nombres en inglés, en español y en otros
-   idiomas (`aero_busy`, `texto`, `Link Select`, `手書き`…).
+2. El nombre del archivo, en inglés, español y otros idiomas (`aero_busy`, `texto`, `Link Select`, `手書き`…).
 3. El número de orden de Windows (`01` = normal, `02` = ayuda, … `15` = vínculo).
 
 ### 2. Revisar las 15 situaciones
@@ -109,99 +70,88 @@ ubica cada archivo usando, en este orden:
 En cada cuadro podés:
 
 - **Pasar el mouse** por la vista previa para probar el cursor.
-- **Hacer clic** en la vista previa para mover el punto activo (la cruz roja).
-  El botón **↻** lo devuelve al original.
+- **Hacer clic** en la vista previa para mover el punto activo (la cruz roja). El botón **↻** lo devuelve al original.
 - **Arrastrar un archivo** o usar **Elegir…** para cambiarlo.
 
 Las situaciones que dejes vacías usan el cursor que tenías antes.
 
 ### 3. Aplicar
 
-Elegí un nombre y un tamaño, y tocá **Aplicar cursor**. El cambio es inmediato.
+Elegí un nombre y un tamaño (24, 32, 48 o 64 px) y tocá **Aplicar cursor**. El cambio es inmediato.
 
-En el menú **☰** podés volver al cursor anterior, borrar temas creados con la app
-o empezar de cero.
+### 4. Guardar un preset
 
-## Presets
+**Guardar preset** guarda la combinación actual (cursores, puntos activos y tamaño) sin cambiar el cursor que estás usando. Desde **Presets ▾** podés abrir uno para editarlo, aplicarlo directo o borrarlo.
 
-**Guardar preset** guarda la combinación actual (cursores, puntos activos y
-tamaño) sin cambiar el cursor que estás usando. Desde **Presets ▾** podés abrir
-uno para editarlo, aplicarlo directo o borrarlo.
+## Problemas frecuentes
 
-Cada preset guarda una copia de sus archivos en `~/.config/cursify/presets`, así
-sigue funcionando aunque borres el pack original.
+<details>
+<summary><b>Brave, Discord o VSCodium siguen con el cursor viejo</b></summary>
 
-## Apps Flatpak
-
-Las apps Flatpak (Brave, Discord, VSCodium y otras) no ven los temas de cursor
-de tu usuario si no tienen permiso. Para dárselo, en modo solo lectura, o
-quitarlo:
+Son apps Flatpak y necesitan permiso para leer tus temas de cursor. Dáselo en modo solo lectura:
 
 ```bash
-# Dar permiso (solo lectura)
 flatpak override --user --filesystem=xdg-data/icons:ro --filesystem=~/.icons:ro
+```
 
-# Quitarlo
+Para quitarlo:
+
+```bash
 flatpak override --user --nofilesystem=xdg-data/icons --nofilesystem=~/.icons
 ```
+</details>
 
-## Cómo funciona por dentro
+<details>
+<summary><b>¿Cómo vuelvo al cursor que tenía antes?</b></summary>
 
-1. **Lectura**: `formatos/wincursor.py` decodifica los `.ani`, `.cur` e `.ico`
-   (cuadros, tiempos de animación y punto activo).
-2. **Asignación**: `nucleo/roles.py` asigna cada archivo a una situación y la
-   traduce a todos los nombres de cursor que usan las apps de Linux (`left_ptr`,
-   `pointer`, `text`, `wait`, `col-resize`…).
-3. **Generación**: `nucleo/theme.py` escala cada cursor a 24, 32, 48 y 64 px y
-   `formatos/xcursor.py` lo escribe en formato Xcursor. El tema se crea en
-   `~/.local/share/icons/<nombre>`, con un enlace en `~/.icons`.
-4. **Activación**: el tema y el tamaño se aplican en Cinnamon, y también en
-   GNOME y MATE si están instalados.
+Abrí el menú **☰** y elegí volver al cursor anterior. Desde ahí también podés borrar temas creados con la app o empezar de cero.
+</details>
 
-Archivos que usa la app:
-
-| Ruta | Contenido |
-|---|---|
-| `~/.local/share/icons/<nombre>` | Temas de cursor creados |
-| `~/.config/cursify/presets/` | Presets guardados |
-| `~/.config/cursify/state.json` | Cursor anterior (para volver atrás) |
-| `~/.config/cursify/` | Ajustes, como el idioma |
-
-## Estructura del proyecto
-
-```
-Cursify/
-├── cursify.py          punto de entrada
-├── interfaz/
-│   └── app.py          ventana e interfaz GTK
-├── nucleo/
-│   ├── theme.py        arma el tema de cursor y lo aplica
-│   ├── roles.py        las 15 situaciones y cómo reconocer cada archivo
-│   ├── presets.py      guardar, abrir y borrar presets
-│   ├── i18n.py         textos e idiomas
-│   └── info.py         nombre y versión de la app
-├── formatos/
-│   ├── wincursor.py    lee .ani, .cur e .ico de Windows
-│   ├── xcursor.py      escribe cursores en formato Xcursor
-│   └── cursave.py      guarda cursores como .cur (para los presets)
-├── recursos/
-│   └── cursify.svg     ícono de la app
-└── scripts/
-    ├── instalar.sh     instala para tu usuario (desde el código)
-    ├── desinstalar.sh
-    └── crear-deb.sh    arma el instalador .deb para los releases
-```
-
-## Desinstalar
+<details>
+<summary><b>¿Cómo desinstalo Cursify?</b></summary>
 
 ```bash
 sudo apt remove cursify
 ```
 
-Quita la app, el comando y la entrada del menú. Los temas que creaste siguen en
-`~/.local/share/icons` y se pueden elegir en *Configuración del sistema → Temas →
-Puntero del ratón*. Tus presets y ajustes quedan en `~/.config/cursify`: si no
-los querés, borrá esa carpeta.
+Los temas que creaste siguen en `~/.local/share/icons` y se pueden elegir en *Configuración del sistema → Temas → Puntero del ratón*. Tus presets y ajustes quedan en `~/.config/cursify`: si no los querés, borrá esa carpeta.
+</details>
+
+## Detalles técnicos
+
+<details>
+<summary><b>Cómo funciona por dentro</b></summary>
+
+1. **Lectura**: `formatos/wincursor.py` decodifica los `.ani`, `.cur` e `.ico` (cuadros, tiempos de animación y punto activo).
+2. **Asignación**: `nucleo/roles.py` asigna cada archivo a una situación y la traduce a los nombres de cursor que usan las apps de Linux (`left_ptr`, `pointer`, `text`, `wait`…).
+3. **Generación**: `nucleo/theme.py` escala cada cursor a 24, 32, 48 y 64 px, y `formatos/xcursor.py` lo escribe en formato Xcursor.
+4. **Activación**: el tema se aplica en Cinnamon, y también en GNOME y MATE si están instalados.
+</details>
+
+<details>
+<summary><b>Archivos que crea en tu usuario</b></summary>
+
+| Ruta | Contenido |
+|---|---|
+| `~/.local/share/icons/<nombre>` | Temas de cursor creados (con un enlace en `~/.icons`) |
+| `~/.config/cursify/presets/` | Presets guardados |
+| `~/.config/cursify/state.json` | Cursor anterior, para volver atrás |
+| `~/.config/cursify/settings.json` | Ajustes, como el idioma |
+</details>
+
+<details>
+<summary><b>Estructura del proyecto</b></summary>
+
+```
+Cursify/
+├── cursify.py          punto de entrada
+├── interfaz/           ventana e interfaz GTK
+├── nucleo/             temas, situaciones, presets, idiomas
+├── formatos/           lectura y escritura de .ani, .cur, .ico y Xcursor
+├── recursos/           ícono
+└── scripts/            instalación y armado del .deb
+```
+</details>
 
 ## Licencia
 
