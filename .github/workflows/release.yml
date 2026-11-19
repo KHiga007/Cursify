@@ -1,0 +1,41 @@
+# Al subir una etiqueta vX.Y.Z se arma el instalador .deb y se publica en un release.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Revisar que la versión coincida con la etiqueta
+        run: |
+          VERSION="$(python3 -c "from nucleo.info import __version__; print(__version__)")"
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "La etiqueta es $GITHUB_REF_NAME pero nucleo/info.py dice $VERSION" >&2
+            exit 1
+          fi
+
+      - name: Armar el .deb
+        run: bash scripts/crear-deb.sh
+
+      - name: Publicar el release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.deb
+          generate_release_notes: true
+          body: |
+            ## Instalar
+
+            1. Descargá `cursify_*_all.deb`.
+            2. Abrilo con doble clic (se instala con el Instalador de paquetes) o desde la terminal:
+               ```bash
+               sudo apt install ./cursify_*_all.deb
+               ```
+            3. Abrí **Cursify** desde el menú, en **Preferencias**.

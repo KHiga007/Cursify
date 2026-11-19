@@ -33,6 +33,7 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 - [Cómo funciona por dentro](#cómo-funciona-por-dentro)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Desarrollo](#desarrollo)
+- [Publicar una versión](#publicar-una-versión)
 - [Desinstalar](#desinstalar)
 - [Antes se llamaba PunteroFácil](#antes-se-llamaba-punterofácil)
 - [Licencia](#licencia)
@@ -66,13 +67,30 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 
 ## Instalación
 
+### Con el instalador (recomendado)
+
+1. Descargá `cursify_X.Y.Z_all.deb` desde la página de
+   [Releases](https://github.com/KHiga007/Cursify/releases/latest).
+2. Abrilo con doble clic para instalarlo con el Instalador de paquetes, o desde
+   la terminal:
+
+   ```bash
+   sudo apt install ./cursify_*_all.deb
+   ```
+
+3. Abrí **Cursify** desde el menú, en **Preferencias**.
+
+Para desinstalarlo: `sudo apt remove cursify`.
+
+### Desde el código
+
 ```bash
 git clone https://github.com/KHiga007/Cursify.git
 cd Cursify
 bash scripts/instalar.sh
 ```
 
-El instalador:
+`scripts/instalar.sh` instala la app solo para tu usuario, sin sudo:
 
 1. Copia la app a `~/.local/share/cursify`.
 2. Crea el comando `cursify` en `~/.local/bin`.
@@ -190,8 +208,9 @@ Cursify/
 ├── recursos/
 │   └── cursify.svg     ícono de la app
 └── scripts/
-    ├── instalar.sh
-    └── desinstalar.sh
+    ├── instalar.sh     instala para tu usuario (desde el código)
+    ├── desinstalar.sh
+    └── crear-deb.sh    arma el instalador .deb para los releases
 ```
 
 ## Desarrollo
@@ -208,7 +227,28 @@ que las dos pueden estar abiertas a la vez sin chocar.
 Para que la versión instalada tome tus cambios, volvé a correr
 `bash scripts/instalar.sh`.
 
+## Publicar una versión
+
+1. Cambiá `__version__` en `nucleo/info.py`.
+2. Hacé commit y subí una etiqueta con la misma versión:
+
+   ```bash
+   git tag v1.0.1
+   git push origin v1.0.1
+   ```
+
+GitHub Actions arma el `.deb` con `scripts/crear-deb.sh` y publica el release.
+Para armar el paquete en tu compu: `bash scripts/crear-deb.sh` (queda en `dist/`).
+
 ## Desinstalar
+
+Si lo instalaste con el `.deb`:
+
+```bash
+sudo apt remove cursify
+```
+
+Si lo instalaste desde el código:
 
 ```bash
 bash scripts/desinstalar.sh

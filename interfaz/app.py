@@ -2560,13 +2560,14 @@ class MainWindow(Gtk.ApplicationWindow):
         about.run()
         about.destroy()
 
-INSTALL_DIR = os.path.expanduser("~/.local/share/cursify")
+# Dónde queda la app instalada: con scripts/instalar.sh (usuario) o con el paquete .deb.
+INSTALL_DIRS = (os.path.expanduser("~/.local/share/cursify"), "/usr/share/cursify")
 
 
 def is_installed():
-    """True si se ejecuta la copia instalada (y no la carpeta del proyecto)."""
+    """True si se ejecuta una copia instalada (y no la carpeta del proyecto)."""
     here = os.path.realpath(ROOT_DIR)
-    return here.startswith(os.path.realpath(INSTALL_DIR) + os.sep)
+    return any(here == os.path.realpath(d) for d in INSTALL_DIRS)
 
 
 class CursifyApp(Gtk.Application):
