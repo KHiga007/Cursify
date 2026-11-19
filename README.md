@@ -134,8 +134,8 @@ sigue funcionando aunque borres el pack original.
 ## Apps Flatpak
 
 Las apps Flatpak (Brave, Discord, VSCodium y otras) no ven los temas de cursor
-de tu usuario si no tienen permiso. `scripts/instalar.sh` te ofrece dárselo, en
-modo solo lectura. Para darlo o quitarlo a mano:
+de tu usuario si no tienen permiso. Para dárselo, en modo solo lectura, o
+quitarlo:
 
 ```bash
 # Dar permiso (solo lectura)
@@ -194,16 +194,8 @@ Cursify/
 
 ## Desinstalar
 
-Si lo instalaste con el `.deb`:
-
 ```bash
 sudo apt remove cursify
-```
-
-Si lo instalaste desde el código:
-
-```bash
-bash scripts/desinstalar.sh
 ```
 
 Quita la app, el comando y la entrada del menú. Los temas que creaste siguen en
