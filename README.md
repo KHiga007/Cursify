@@ -32,7 +32,6 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 - [Apps Flatpak](#apps-flatpak)
 - [Cómo funciona por dentro](#cómo-funciona-por-dentro)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Publicar una versión](#publicar-una-versión)
 - [Desinstalar](#desinstalar)
 - [Licencia](#licencia)
 
@@ -192,19 +191,6 @@ Cursify/
     ├── desinstalar.sh
     └── crear-deb.sh    arma el instalador .deb para los releases
 ```
-
-## Publicar una versión
-
-1. Cambiá `__version__` en `nucleo/info.py`.
-2. Hacé commit y subí una etiqueta con la misma versión:
-
-   ```bash
-   git tag v1.0.1
-   git push origin v1.0.1
-   ```
-
-GitHub Actions arma el `.deb` con `scripts/crear-deb.sh` y publica el release.
-Para armar el paquete en tu compu: `bash scripts/crear-deb.sh` (queda en `dist/`).
 
 ## Desinstalar
 
