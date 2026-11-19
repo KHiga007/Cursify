@@ -67,8 +67,6 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 
 ## Instalación
 
-### Con el instalador (recomendado)
-
 1. Descargá `cursify_X.Y.Z_all.deb` desde la página de
    [Releases](https://github.com/KHiga007/Cursify/releases/latest).
 2. Abrilo con doble clic para instalarlo con el Instalador de paquetes, o desde
@@ -82,23 +80,7 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 
 Para desinstalarlo: `sudo apt remove cursify`.
 
-### Desde el código
-
-```bash
-git clone https://github.com/KHiga007/Cursify.git
-cd Cursify
-bash scripts/instalar.sh
-```
-
-`scripts/instalar.sh` instala la app solo para tu usuario, sin sudo:
-
-1. Copia la app a `~/.local/share/cursify`.
-2. Crea el comando `cursify` en `~/.local/bin`.
-3. Agrega Cursify al menú, en la sección **Aki Tools**, con su ícono.
-4. Te pregunta si las apps Flatpak pueden leer tus temas de cursor (ver
-   [Apps Flatpak](#apps-flatpak)).
-
-Después lo abrís desde el menú (**Aki Tools → Cursify**) o con:
+También se abre desde la terminal:
 
 ```bash
 cursify                       # abre la app
