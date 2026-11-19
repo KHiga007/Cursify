@@ -180,7 +180,7 @@ Cursify/
 │   ├── roles.py        las 15 situaciones y cómo reconocer cada archivo
 │   ├── presets.py      guardar, abrir y borrar presets
 │   ├── i18n.py         textos e idiomas
-│   └── info.py         nombre, versión y migración desde PunteroFácil
+│   └── info.py         nombre y versión de la app
 ├── formatos/
 │   ├── wincursor.py    lee .ani, .cur e .ico de Windows
 │   ├── xcursor.py      escribe cursores en formato Xcursor
