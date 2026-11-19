@@ -1,9 +1,12 @@
-# Al subir una etiqueta vX.Y.Z se arma el instalador .deb y se publica en un release.
+# Arma el instalador .deb y lo adjunta al release. Se dispara al subir una etiqueta
+# vX.Y.Z o al publicar un release desde la web de GitHub.
 name: Release
 
 on:
   push:
     tags: ["v*"]
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -29,7 +32,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.deb
-          generate_release_notes: true
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: ${{ github.event_name == 'push' }}
+          append_body: ${{ github.event_name == 'release' }}
           body: |
             ## Instalar
 
