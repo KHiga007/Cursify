@@ -32,7 +32,6 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 - [Apps Flatpak](#apps-flatpak)
 - [Cómo funciona por dentro](#cómo-funciona-por-dentro)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Desarrollo](#desarrollo)
 - [Publicar una versión](#publicar-una-versión)
 - [Desinstalar](#desinstalar)
 - [Antes se llamaba PunteroFácil](#antes-se-llamaba-punterofácil)
@@ -194,20 +193,6 @@ Cursify/
     ├── desinstalar.sh
     └── crear-deb.sh    arma el instalador .deb para los releases
 ```
-
-## Desarrollo
-
-Podés probar la app sin instalarla, desde la carpeta del proyecto:
-
-```bash
-python3 cursify.py
-```
-
-La copia del proyecto usa otro identificador de aplicación que la instalada, así
-que las dos pueden estar abiertas a la vez sin chocar.
-
-Para que la versión instalada tome tus cambios, volvé a correr
-`bash scripts/instalar.sh`.
 
 ## Publicar una versión
 
