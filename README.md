@@ -34,7 +34,6 @@ antes de aplicarlo y guarda tus combinaciones como presets.
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Publicar una versión](#publicar-una-versión)
 - [Desinstalar](#desinstalar)
-- [Antes se llamaba PunteroFácil](#antes-se-llamaba-punterofácil)
 - [Licencia](#licencia)
 
 ## Características
@@ -225,13 +224,6 @@ Quita la app, el comando y la entrada del menú. Los temas que creaste siguen en
 `~/.local/share/icons` y se pueden elegir en *Configuración del sistema → Temas →
 Puntero del ratón*. Tus presets y ajustes quedan en `~/.config/cursify`: si no
 los querés, borrá esa carpeta.
-
-## Antes se llamaba PunteroFácil
-
-La primera vez que abrís Cursify, copia tus presets y ajustes de
-`~/.config/punterofacil` a `~/.config/cursify`. La carpeta vieja no se toca. Los
-temas creados con PunteroFácil se siguen reconociendo como propios, y
-`scripts/instalar.sh` quita la versión instalada con el nombre viejo.
 
 ## Licencia
 
