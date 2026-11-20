@@ -17,6 +17,10 @@
 
 <!-- Captura de la app: agregar recursos/captura.png y mostrarla acá -->
 
+> [!NOTE]
+> **Hecha para Linux Mint.** Funciona en todas sus ediciones: Cinnamon, MATE y Xfce,
+> y también en LMDE. En otras distribuciones puede funcionar, pero no está probada.
+
 ## Inicio rápido
 
 1. Descargá el instalador `.deb` desde [Releases](https://github.com/KHiga007/Cursify/releases/latest).
@@ -34,7 +38,7 @@
 
 ## Instalación
 
-Funciona en todas las ediciones de Linux Mint (Cinnamon, MATE y Xfce), también en LMDE, y en GNOME.
+Requiere Linux Mint, en cualquiera de sus ediciones: Cinnamon, MATE, Xfce o LMDE.
 
 1. Descargá `cursify_X.Y.Z_all.deb` desde [Releases](https://github.com/KHiga007/Cursify/releases/latest).
 2. Abrilo con doble clic, o instalalo desde la terminal:
@@ -125,7 +129,7 @@ Los temas que creaste siguen en `~/.local/share/icons` y se pueden elegir en *Co
 1. **Lectura**: `formatos/wincursor.py` decodifica los `.ani`, `.cur` e `.ico` (cuadros, tiempos de animación y punto activo).
 2. **Asignación**: `nucleo/roles.py` asigna cada archivo a una situación y la traduce a los nombres de cursor que usan las apps de Linux (`left_ptr`, `pointer`, `text`, `wait`…).
 3. **Generación**: `nucleo/theme.py` escala cada cursor a 24, 32, 48 y 64 px, y `formatos/xcursor.py` lo escribe en formato Xcursor.
-4. **Activación**: el tema se aplica en el escritorio que uses: Cinnamon, MATE, Xfce o GNOME.
+4. **Activación**: el tema se aplica en el escritorio de tu Linux Mint: Cinnamon, MATE o Xfce.
 </details>
 
 <details>
