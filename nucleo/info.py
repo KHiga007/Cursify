@@ -1,6 +1,6 @@
 """Cursify: crea y aplica temas de cursores al estilo Windows en Linux Mint."""
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 APP_NAME = "Cursify"
 
 

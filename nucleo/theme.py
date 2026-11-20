@@ -1,9 +1,11 @@
-"""Carga de imágenes, armado del tema Xcursor y aplicación en Cinnamon."""
+"""Carga de imágenes, armado del tema Xcursor y aplicación en el escritorio
+(Cinnamon, MATE y Xfce: todas las ediciones de Linux Mint; también GNOME)."""
 
 import json
 import os
 import re
 import shutil
+import subprocess
 import tempfile
 
 import gi
@@ -349,10 +351,28 @@ _SCHEMAS = ("org.cinnamon.desktop.interface", "org.gnome.desktop.interface",
             "org.mate.peripherals-mouse")
 
 
+def _desktop():
+    """Escritorio de la sesión actual, en minúsculas (p. ej. «x-cinnamon», «mate», «xfce»)."""
+    return (os.environ.get("XDG_CURRENT_DESKTOP") or os.environ.get("DESKTOP_SESSION") or "").lower()
+
+
+def _schemas_in_order():
+    """Los esquemas, empezando por el del escritorio actual (es el que manda al leer)."""
+    desktop = _desktop()
+    first = None
+    if "cinnamon" in desktop:
+        first = "org.cinnamon.desktop.interface"
+    elif "mate" in desktop:
+        first = "org.mate.peripherals-mouse"
+    elif "gnome" in desktop or "unity" in desktop or "budgie" in desktop:
+        first = "org.gnome.desktop.interface"
+    return ((first,) if first else ()) + tuple(s for s in _SCHEMAS if s != first)
+
+
 def _settings_list():
     source = Gio.SettingsSchemaSource.get_default()
     found = []
-    for schema_id in _SCHEMAS:
+    for schema_id in _schemas_in_order():
         schema = source.lookup(schema_id, True) if source else None
         if schema is None:
             continue
@@ -363,7 +383,46 @@ def _settings_list():
     return found
 
 
+# Xfce (Linux Mint Xfce) guarda el cursor en xfconf, no en gsettings.
+_XFCONF_THEME = "/Gtk/CursorThemeName"
+_XFCONF_SIZE = "/Gtk/CursorThemeSize"
+
+
+def _xfconf(*args):
+    """Corre xfconf-query sobre el canal xsettings. Devuelve la salida, o None si falla."""
+    exe = shutil.which("xfconf-query")
+    if not exe:
+        return None
+    try:
+        done = subprocess.run([exe, "-c", "xsettings", *args], capture_output=True,
+                              text=True, timeout=5)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return done.stdout.strip() if done.returncode == 0 else None
+
+
+def _xfce_current():
+    theme = _xfconf("-p", _XFCONF_THEME)
+    if not theme:
+        return None
+    size = _xfconf("-p", _XFCONF_SIZE)
+    return theme, int(size) if size and size.isdigit() and int(size) > 0 else 24
+
+
+def _xfce_set(theme, size):
+    # -n crea la propiedad si todavía no existe (Xfce recién instalado).
+    if _xfconf("-p", _XFCONF_THEME, "-s", theme) is None:
+        _xfconf("-p", _XFCONF_THEME, "-n", "-t", "string", "-s", theme)
+    if size:
+        if _xfconf("-p", _XFCONF_SIZE, "-s", str(int(size))) is None:
+            _xfconf("-p", _XFCONF_SIZE, "-n", "-t", "int", "-s", str(int(size)))
+
+
 def current_cursor():
+    if "xfce" in _desktop():
+        found = _xfce_current()
+        if found:
+            return found
     for settings, theme_key, size_key in _settings_list():
         size = settings.get_int(size_key) if size_key else 24
         return settings.get_string(theme_key), size
@@ -401,6 +460,8 @@ def _set_cursor(theme, size):
         if size_key and size:
             settings.set_int(size_key, int(size))
     Gio.Settings.sync()
+    if shutil.which("xfconf-query"):
+        _xfce_set(theme, size)
 
 
 def apply_theme(name, size):
@@ -431,7 +492,7 @@ def has_previous():
 
 
 def set_cursor(theme_name, size):
-    """Activa un tema de cursor y su tamaño en Cinnamon, GNOME y MATE."""
+    """Activa un tema de cursor y su tamaño en Cinnamon, MATE, Xfce y GNOME."""
     _set_cursor(theme_name, size)
 
 

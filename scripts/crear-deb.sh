@@ -77,6 +77,20 @@ Description: Usá packs de cursores de Windows en Linux Mint
  activo y guarda combinaciones como presets.
 EOF
 
+# Al instalar se compila el código de Python (así la app arranca más rápido)
+# y al quitar el paquete se borra esa caché.
+cat > "$ROOT/DEBIAN/postinst" <<'EOF'
+#!/bin/sh
+set -e
+python3 -m compileall -q /usr/share/cursify >/dev/null 2>&1 || true
+EOF
+cat > "$ROOT/DEBIAN/prerm" <<'EOF'
+#!/bin/sh
+set -e
+find /usr/share/cursify -name "__pycache__" -type d -prune -exec rm -rf {} + 2>/dev/null || true
+EOF
+chmod 755 "$ROOT/DEBIAN/postinst" "$ROOT/DEBIAN/prerm"
+
 mkdir -p "$OUT"
 dpkg-deb --root-owner-group --build "$ROOT" "$OUT/$PKG.deb" >/dev/null
 echo "Listo: dist/$PKG.deb"

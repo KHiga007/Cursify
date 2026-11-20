@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="Linux Mint" src="https://img.shields.io/badge/Linux%20Mint-Cinnamon-87CF3E?logo=linuxmint&logoColor=white">
+  <img alt="Linux Mint" src="https://img.shields.io/badge/Linux%20Mint-Cinnamon%20%7C%20MATE%20%7C%20Xfce-87CF3E?logo=linuxmint&logoColor=white">
   <img alt="Python 3" src="https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white">
   <img alt="GTK 3" src="https://img.shields.io/badge/GTK-3-4A86CF">
   <img alt="Licencia GPL-3.0" src="https://img.shields.io/badge/licencia-GPL--3.0-blue">
@@ -34,7 +34,7 @@
 
 ## Instalación
 
-Funciona en Linux Mint con Cinnamon, y también aplica el cursor en GNOME y MATE.
+Funciona en todas las ediciones de Linux Mint (Cinnamon, MATE y Xfce), también en LMDE, y en GNOME.
 
 1. Descargá `cursify_X.Y.Z_all.deb` desde [Releases](https://github.com/KHiga007/Cursify/releases/latest).
 2. Abrilo con doble clic, o instalalo desde la terminal:
@@ -125,7 +125,7 @@ Los temas que creaste siguen en `~/.local/share/icons` y se pueden elegir en *Co
 1. **Lectura**: `formatos/wincursor.py` decodifica los `.ani`, `.cur` e `.ico` (cuadros, tiempos de animación y punto activo).
 2. **Asignación**: `nucleo/roles.py` asigna cada archivo a una situación y la traduce a los nombres de cursor que usan las apps de Linux (`left_ptr`, `pointer`, `text`, `wait`…).
 3. **Generación**: `nucleo/theme.py` escala cada cursor a 24, 32, 48 y 64 px, y `formatos/xcursor.py` lo escribe en formato Xcursor.
-4. **Activación**: el tema se aplica en Cinnamon, y también en GNOME y MATE si están instalados.
+4. **Activación**: el tema se aplica en el escritorio que uses: Cinnamon, MATE, Xfce o GNOME.
 </details>
 
 <details>
