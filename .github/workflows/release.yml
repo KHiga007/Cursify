@@ -1,9 +1,16 @@
-# Arma el instalador .deb y lo adjunta al release. Se dispara al subir una etiqueta
-# vX.Y.Z o al publicar un release desde la web de GitHub.
+# Arma el instalador .deb y lo publica en un release.
+#
+# Se dispara:
+# - al subir a main un cambio de versión en nucleo/info.py (crea el release vX.Y.Z
+#   si todavía no existe),
+# - al subir una etiqueta vX.Y.Z,
+# - al publicar un release desde la web de GitHub (le adjunta el .deb).
 name: Release
 
 on:
   push:
+    branches: [main]
+    paths: ["nucleo/info.py", ".github/workflows/release.yml"]
     tags: ["v*"]
   release:
     types: [published]
@@ -17,26 +24,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Revisar que la versión coincida con la etiqueta
+      - name: Leer la versión
+        id: ver
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="$(python3 -c "from nucleo.info import __version__; print(__version__)")"
-          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
-            echo "La etiqueta es $GITHUB_REF_NAME pero nucleo/info.py dice $VERSION" >&2
-            exit 1
+          TAG="v$VERSION"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_TYPE" = "tag" ] || [ "$GITHUB_EVENT_NAME" = "release" ]; then
+            if [ "$TAG" != "$GITHUB_REF_NAME" ]; then
+              echo "La etiqueta es $GITHUB_REF_NAME pero nucleo/info.py dice $VERSION" >&2
+              exit 1
+            fi
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+          elif gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "El release $TAG ya existe: no hay nada que publicar."
+            echo "publicar=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Armar el .deb
+        if: steps.ver.outputs.publicar == 'true'
         run: bash scripts/crear-deb.sh
 
       - name: Publicar el release
+        if: steps.ver.outputs.publicar == 'true'
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.deb
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Cursify ${{ steps.ver.outputs.tag }}
           generate_release_notes: ${{ github.event_name == 'push' }}
           append_body: ${{ github.event_name == 'release' }}
           body: |
             ## Instalar
+
+            Hecha para Linux Mint: Cinnamon, MATE, Xfce y LMDE.
 
             1. Descargá `cursify_*_all.deb`.
             2. Abrilo con doble clic (se instala con el Instalador de paquetes) o desde la terminal:
